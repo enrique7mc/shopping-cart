@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import ShoppingCart from './ShoppingCart';
+import Snack from './Snack';
+import { DragDropContext } from 'react-dnd';
+import HTML5BackEnd from 'react-dnd-html5-backend';
 
-export default class Cointainer extends React.Component {
+class Container extends Component {
   render() {
     return (
-      <div></div>
+      <div>
+        <Snack name='Chips' />
+        <Snack name='Cupcake' />
+        <Snack name='Donut' />
+        <Snack name='Doritos' />
+        <Snack name='Popcorn' />
+        <ShoppingCart />
+      </div>
     );
   }
 }
+
+export default DragDropContext(HTML5BackEnd)(Container);
