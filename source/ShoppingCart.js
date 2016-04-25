@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
 
+const ShoppingCartSpec = {
+  drop () {
+    return { name: 'ShoppingCart' };
+  }
+};
+
+let collect = (connect, monitor) => {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop()
+  };
+}
+
 class ShoppingCart extends Component {
-  const ShoppingCartSpec = {
-    drop () {
-      return { name: 'ShoppingCart' };
-    }
-  }
-
-  let collect = (connect, monitor) => {
-    return {
-      connectDropTarget: connect.dropTarget(),
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop()
-    };
-  }
-
   render () {
     const { canDrop, isOver, connectDropTarget } = this.props;
     const isActive = canDrop && isOver;
@@ -24,7 +24,7 @@ class ShoppingCart extends Component {
     backgroundColor = isActive ? '#F7F7BD' : '#F7F7F7';
 
     const style = {
-      backgroundColor: backgroundColor;
+      backgroundColor: backgroundColor
     };
 
     return connectDropTarget(
@@ -41,4 +41,4 @@ ShoppingCart.propTypes = {
   canDrop: PropTypes.bool.isRequired
 };
 
-export default ShoppingCart;
+export default DropTarget('snack', ShoppingCartSpec, collect)(ShoppingCart);
